@@ -1,0 +1,27 @@
+{
+  "name": "weiqicore",
+  "version": "1.0.0",
+  "description": "围棋核心实现",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/go-game-miniprogram/weiqiCore.git"
+  },
+  "keywords": [
+    "weiqi"
+  ],
+  "author": "ailuoku6",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/go-game-miniprogram/weiqiCore/issues"
+  },
+  "homepage": "https://github.com/go-game-miniprogram/weiqiCore#readme",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
