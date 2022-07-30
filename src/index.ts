@@ -1,5 +1,5 @@
 import { EatStones, Point, Position } from "./types";
-import { mapBoardPoint2Str, mapStr2BoardPoint } from "./utils";
+import { mapStr2BoardPoint } from "./utils";
 
 const mapper = new Map<number, "b" | "w">();
 mapper.set(-1, "b");
@@ -145,30 +145,30 @@ class WeiqiCore {
     }
 
     //搜索离目标颜色棋子最近的距离
-    private nearestNeighbor(
-        color: -1 | 1,
-        pos: Position,
-        data: number[][],
-        searched: Map<string, boolean>
-    ) {
-        searched.set(`${pos.x},${pos.y}`, true);
+    // private nearestNeighbor(
+    //     color: -1 | 1,
+    //     pos: Position,
+    //     data: number[][],
+    //     searched: Map<string, boolean>
+    // ) {
+    //     searched.set(`${pos.x},${pos.y}`, true);
 
-        for (let dire of fourDire) {
-            const p1: Position = { x: pos.x + dire.x, y: pos.y + dire.y };
-            if (!this.isInBoard(p1)) continue;
-            if (!searched.get(`${p1.x},${p1.y}`)) {
-                this.nearestNeighbor(color, p1, data, searched);
-            }
-            data[pos.x][pos.y] = Math.min(
-                data[pos.x][pos.y],
-                data[p1.x][p1.y] + 1
-            );
-        }
+    //     for (let dire of fourDire) {
+    //         const p1: Position = { x: pos.x + dire.x, y: pos.y + dire.y };
+    //         if (!this.isInBoard(p1)) continue;
+    //         if (!searched.get(`${p1.x},${p1.y}`)) {
+    //             this.nearestNeighbor(color, p1, data, searched);
+    //         }
+    //         data[pos.x][pos.y] = Math.min(
+    //             data[pos.x][pos.y],
+    //             data[p1.x][p1.y] + 1
+    //         );
+    //     }
 
-        searched.set(`${pos.x},${pos.y}`, false);
+    //     searched.set(`${pos.x},${pos.y}`, false);
 
-        return data;
-    }
+    //     return data;
+    // }
 
     public whoTurn() {
         return mapper.get(this.curPlayer) === "b" ? -1 : 1;
@@ -245,7 +245,6 @@ class WeiqiCore {
         const p = mapStr2BoardPoint(point.zuobiao, this.size);
         if (p.x === -1 && p.y === -1) return eatstone; //停一手，不做后续处理
         const player = strMapPlayer[point.player];
-        // this.board[p.x][p.y] = player;
         this.setBoardPos(p, player);
 
         //判断吃子
@@ -255,7 +254,6 @@ class WeiqiCore {
                 y: p.y + fourDire[i].y,
             };
 
-            // if(this.isInBoard(pos)&&this.board[pos.x][pos.y]!==player){
             if (this.isInBoard(pos) && this.getBoardPos(pos) !== player) {
                 //寻找对方棋块
                 let stones = this.findArea(pos, -player);
@@ -268,7 +266,6 @@ class WeiqiCore {
 
         //提子
         for (let stone of eatstone) {
-            // this.board[stone.x][stone.y] = 0;
             this.setBoardPos(stone, 0);
         }
 
@@ -314,7 +311,6 @@ class WeiqiCore {
         }
 
         //判不入气,能吃掉对方的不是不入气
-        // this.board[p.x][p.y] = this.curPlayer;//假设下在这里，记得清理现场
         this.setBoardPos(p, this.curPlayer); //假设下在这里，记得清理现场
 
         const area = this.findArea({ x: p.x, y: p.y }, this.curPlayer);
@@ -341,14 +337,12 @@ class WeiqiCore {
             }
 
             if (flag === false) {
-                // this.board[p.x][p.y] = 0;
                 this.setBoardPos(p, 0);
                 // console.log('不入气');
                 this.lastCanPlayZb = "";
                 return flag;
             }
         }
-        // this.board[p.x][p.y] = 0;
         this.setBoardPos(p, 0);
 
         this.lastCanPlayZb = zuobiao;
