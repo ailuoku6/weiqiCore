@@ -1,40 +1,10 @@
 import { map } from "@sabaki/influence";
 
-// 形式判断核心逻辑
+/**
+ * 形式判断核心逻辑
+ */
 
-// class Rand {
-//     private x: number;
-//     private y: number;
-//     private z: number;
-//     private w: number;
-
-//     constructor(seed: number) {
-//         this.x = 123456789 ^ seed;
-//         this.y = 362436069 ^ seed;
-//         this.z = 521288629;
-//         this.w = 88675123;
-//     }
-
-//     rand(): number {
-//         const t: number = this.x ^ (this.x << 11);
-//         this.x = this.y;
-//         this.y = this.z;
-//         this.z = this.w;
-//         this.w ^= (this.w >>> 19) ^ t ^ (t >>> 8);
-//         return this.w;
-//     }
-
-//     range(a: number, b: number): number {
-//         const m: number = (b - a) >>> 0;
-//         return a + (this.rand() % m);
-//     }
-// }
-
-// 示例用法
-// const rand = new Rand(42); // 使用种子值创建 Rand 实例
-// const randomInt = rand.range(0, 100); // 生成 [0, 100) 范围内的随机整数
-// console.log(randomInt);
-
+// TODO: 随机数逻辑需要优化
 class Rand {
     private seed: number;
 
@@ -55,9 +25,6 @@ class Rand {
 
         // 生成 [a, b) 范围内的随机整数
         return Math.floor(Math.random() * (b - a)) + a;
-        // const min = Math.min(a, b);
-        // const max = Math.max(a, b);
-        // return Math.floor(this.randomInt() * (max - min) + min);
     }
 }
 
@@ -313,7 +280,6 @@ function guess(
 
         if (sign !== undefined && sign !== 0 && !done.includes(vertex)) {
             const chain = board.getChain(vertex);
-            console.info("-------chain", chain);
             const probability =
                 chain.reduce((sum, v) => sum + (map[v] || 0), 0) / chain.length;
 
@@ -399,13 +365,7 @@ function playTillEnd(board: PseudoBoard, sign: Sign, rand: Rand): PseudoBoard {
         (_, index) => index
     ).filter((v) => board.get(v) === 0);
 
-    // console.info("--------playTillEnd1", freeVertices);
-
-    // return board;
-
     while (freeVertices.length > 0 && (!finished[0] || !finished[1])) {
-        // console.info("----------playTillEnd", freeVertices, finished);
-
         let madeMove = false;
 
         while (freeVertices.length > 0) {
