@@ -23,5 +23,8 @@
   "homepage": "https://github.com/go-game-miniprogram/weiqiCore#readme",
   "devDependencies": {
     "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@sabaki/influence": "^1.2.2"
   }
 }

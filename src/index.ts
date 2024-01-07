@@ -1,5 +1,5 @@
 import { EatStones, Point, Position } from "./types";
-import { mapStr2BoardPoint } from "./utils";
+import { mapStr2BoardPoint, DeadStoneUtils } from "./utils";
 
 const mapper = new Map<number, "b" | "w">();
 mapper.set(-1, "b");
@@ -389,6 +389,10 @@ class WeiqiCore {
 
         this.rebuildBoard();
         return [];
+    }
+
+    public estimate(finished: boolean) {
+        return DeadStoneUtils.estimate(this.board, finished);
     }
 }
 
