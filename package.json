@@ -1,5 +1,5 @@
 {
-    "name": "weiqicore",
+    "name": "weiqi-core",
     "version": "1.0.0",
     "description": "围棋核心实现",
     "main": "dist/index.js",
@@ -14,7 +14,8 @@
         "url": "git+https://github.com/go-game-miniprogram/weiqiCore.git"
     },
     "keywords": [
-        "weiqi"
+        "weiqi",
+        "the game of go"
     ],
     "author": "ailuoku6",
     "license": "ISC",
