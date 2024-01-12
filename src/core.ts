@@ -228,6 +228,9 @@ export class WeiqiCore {
         return this.steps;
     }
 
+    /**
+     * 加载棋局步数
+     */
     public setSteps(steps: Point[]) {
         this.board = new Array(this.size);
         for (let i = 0; i < this.size; i++) {
@@ -242,25 +245,29 @@ export class WeiqiCore {
         }
     }
 
+    /** 回到最后一步 */
     public jumpLast() {
         this.jump2Step(this.steps.length - 1);
     }
 
+    /** 跳转到指定步数 */
     public jump2Step(index: number) {
         if (index > this.steps.length) return;
         this.stepIndex = index;
         this.renderBoard();
     }
 
+    /** 跳转上一步 */
     public jumpPreStep() {
         this.jump2Step(this.stepIndex - 1);
     }
 
+    /** 跳转到下一步 */
     public jumpNextStep() {
         this.jump2Step(this.stepIndex + 1);
     }
 
-    //悔棋
+    /** 悔棋 */
     public undo() {
         let undoStep = this.steps.length - 1;
         let point = this.steps.pop(); //在棋盘上删除的子
@@ -285,10 +292,12 @@ export class WeiqiCore {
         this.eatStone.delete(undoStep);
     }
 
+    /** 获取当前手数 */
     public getIndex() {
         return this.steps.length;
     }
 
+    /** 判断所选坐标是否能下，不入气、劫争等 */
     public canPlay(coordinate: string): boolean {
         if (coordinate === "" || coordinate === "pass") {
             this.lastCanPlayPos = coordinate;
@@ -366,6 +375,10 @@ export class WeiqiCore {
         return this.lastPoint;
     }
 
+    /**
+     * @param pos 落子坐标；如A1、B2等
+     * @returns 返回吃掉对方棋子的列表
+     */
     public play(pos: string): Position[] {
         if (this.stepIndex !== this.steps.length) return [];
         if (this.lastCanPlayPos !== pos && !this.canPlay(pos)) return [];
@@ -404,6 +417,10 @@ export class WeiqiCore {
         return [];
     }
 
+    /**
+     * @param finished 棋局是否终止，终止则数棋，否则只是形式判断
+     * @returns 返回黑白双方占据的交叉点
+     */
     public estimate(finished: boolean) {
         return DeadStoneUtils.estimate(this.board, finished);
     }
