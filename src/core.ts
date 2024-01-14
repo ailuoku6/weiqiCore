@@ -408,6 +408,8 @@ export class WeiqiCore {
 
             this.lastCanPlayPos = "";
 
+            this.renderBoard();
+
             return eatstone;
         }
 

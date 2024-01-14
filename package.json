@@ -1,6 +1,6 @@
 {
     "name": "weiqi-core",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "围棋核心实现",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
